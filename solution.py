@@ -10,13 +10,12 @@ def solution(p: float, x: np.array) -> tuple:
     # Измените код этой функции
     # Это будет вашим решением
     # Не меняйте название функции и её аргументы
-    p = 1 - p
-    a = (1 - p) / 2
-    b = 1 - a
     x -= 0.038
-    mn = np.min(x)
-    mx = np.max(x)
-    q = (mn + mx) / 2
-    l = 0.038 + q / (1 - a)
-    r = 0.038 + q / (1 - b)
+    mean_x = x.mean()
+    t = (x - mean_x)**2
+    tt = t.mean()
+    s = np.sqrt(tt)
+    alpha = 1 - p
+    l = 2 * x.mean() + 2 * s * norm.ppf(alpha / 2) / np.sqrt(len(x)) + 0.038
+    r = 2 * x.mean() + 2 * s * norm.ppf(1 - alpha / 2) / np.sqrt(len(x)) + 0.038
     return (l, r)
